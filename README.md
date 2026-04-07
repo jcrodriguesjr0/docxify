@@ -1,10 +1,17 @@
 # docxify
 
+[🇺🇸 English](#english) | [🇧🇷 Português](#português)
+
+---
+
+<a name="english"></a>
+## 🇺🇸 English Version
+
 **Convert AI-generated markdown to professional `.docx` files — and back.**
 
 AI tools like ChatGPT, Claude, and Gemini output markdown. Your boss wants a Word doc. docxify bridges the gap.
 
-## Features
+### Features
 
 - **MD → DOCX** — Headings, bold, italic, code blocks, bullets, numbered lists, blockquotes
 - **DOCX → MD** — Extract text from Word docs back to clean markdown
@@ -14,13 +21,13 @@ AI tools like ChatGPT, Claude, and Gemini output markdown. Your boss wants a Wor
 - **Template support** — Use your company's `.docx` template as a base
 - **Zero bloat** — Only 3 dependencies: `python-docx`, `click`, `tomli`
 
-## Install
+### Install
 
 ```bash
 pip install docxify
 ```
 
-## Quick start
+### Quick start
 
 ```bash
 # Convert markdown to docx
@@ -48,95 +55,70 @@ docxify init
 docxify presets
 ```
 
-## Style presets
-
-| Preset | Font | Body | H1 | Margins | Use case |
-|--------|------|------|----|---------|----------|
-| `default` | Calibri 11pt | 11pt | 22pt | 2.54cm | General purpose |
-| `compact` | Calibri 10pt | 10pt | 18pt | 1.5cm | Dense reports |
-| `academic` | Times New Roman 12pt | 12pt | 14pt | 2.54/3cm | Papers, essays |
-| `modern` | Inter 11pt | 11pt | 24pt | 2.54cm | Startup docs |
-
-## Configuration
-
-Create a `docxify.toml` in your project root (or run `docxify init`):
-
-```toml
-[style]
-preset = "default"
-font_name = "Calibri"
-body_size = 11
-h1_size = 22
-language = "en-US"
-```
-
-Config lookup order: `./docxify.toml` → parent dirs → `~/.config/docxify/config.toml`
-
-Priority: CLI flags > config file > preset defaults.
-
-## Python API
-
-```python
-import docxify
-
-# Simple conversion
-docxify.convert("# Hello\n\nWorld", "output.docx")
-
-# With a style preset
-from docxify import PRESETS
-docxify.convert(markdown_text, "output.docx", style=PRESETS["academic"])
-
-# Custom style
-from docxify import StyleProfile
-style = StyleProfile(font_name="Arial", body_size=12, language="pt-BR")
-docxify.convert(markdown_text, "output.docx", style=style)
-
-# Extract docx to markdown string
-md = docxify.extract("document.docx")
-
-# Batch
-from docxify import batch_convert
-result = batch_convert("./md-files/", "./output/")
-print(f"Converted {result.success_count}/{result.total}")
-```
-
-## Use with AI tools
-
-### ChatGPT / Claude workflow
-
-1. Copy the AI's markdown response
-2. Save to a `.md` file
-3. Run `docxify convert response.md -o report.docx`
-
-### Batch workflow (multiple conversations)
-
-```bash
-# Save all your AI outputs to a folder
-ls ai-outputs/
-#   meeting-notes.md
-#   project-plan.md
-#   code-review.md
-
-# Convert all at once
-docxify batch ai-outputs/ -o documents/ --preset modern
-```
-
-## Supported markdown
+### Supported markdown
 
 | Element | Syntax | Supported |
 |---------|--------|-----------|
 | Headings | `# H1` through `###### H6` | Yes |
 | Bold | `**text**` or `__text__` | Yes |
 | Italic | `*text*` or `_text_` | Yes |
-| Bold+Italic | `***text***` | Yes |
-| Inline code | `` `code` `` | Yes |
-| Code blocks | ` ```lang ... ``` ` | Yes |
-| Bullet lists | `- item` or `* item` | Yes |
-| Numbered lists | `1. item` | Yes |
-| Blockquotes | `> text` | Yes |
-| Horizontal rules | `---` | Yes |
-| Nested lists | Indented sub-items | Yes |
+| Code | `code` blocks | Yes |
 
-## License
-
+### License
 MIT
+
+---
+
+<a name="português"></a>
+## 🇧🇷 Versão em Português
+
+**Converta markdown gerado por IA para arquivos `.docx` profissionais — e vice-versa.**
+
+Ferramentas de IA como ChatGPT, Claude e Gemini cospem Markdown. O seu chefe / sua empresa usam Word. O `docxify` faz a ponte entre esses mundos com perfeição.
+
+### 🚀 Funcionalidades
+
+- **MD → DOCX** — Títulos, negrito, itálico, blocos de código, marcadores, listas e citações
+- **DOCX → MD** — Extração limpa para voltar textos do Word para prompts/markdown
+- **Modo em Lote (Batch)** — Converta pastas inteiras simultaneamente
+- **Presets de Estilo** — `default`, `compact`, `academic`, `modern` — ou parametrize tudo ao seu favor
+- **Arquivo de Config.** — Configure uma vez no respositório via `docxify.toml`
+- **Suporte a Template** — Injete o layout da sua própria empresa como base estrutural
+- **Extremamente Leve** — Apenas 3 dependências ativas: `python-docx`, `click`, `tomli`
+
+### 💻 Instalação
+
+```bash
+pip install docxify
+```
+
+### ⚡ Uso Rápido e CLI
+
+```bash
+# Converter markdown puro em docx
+docxify convert report.md
+
+# Usar um preset acadêmico ou corporativo
+docxify convert report.md --preset academic
+
+# Formatar uma CLI customizada na marra
+docxify convert report.md --font "Arial" --body-size 12
+
+# Fazer a engenharia reversa (docx -> markdown)
+docxify extract document.docx
+
+# Converter um diretório em lote
+docxify batch ./markdown-files/ -o ./docx-output/
+
+# Extrair um diretório em lote
+docxify batch ./docx-files/ -o ./md-output/ --reverse
+```
+
+### 🧠 Workflow Prático (Workflow de Automação IA)
+
+1. Copie o texto (ou force a saída do seu Agente favorito via tool call) em Markdown.
+2. Salve o arquivo localmente em `.md`.
+3. Rode `docxify convert response.md -o relatorio_final.docx`. As tabelas, negritos e marcações se tornarão elementos nativos de Microsoft Word sem "quebras" estranhas.
+
+### 📄 Licença
+Licença MIT. Livre para uso comercial e corporativo.
