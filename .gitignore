@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.eggs/
+*.docx
+!tests/fixtures/*.docx
+.venv/
+.pytest_cache/
+docxify.toml
